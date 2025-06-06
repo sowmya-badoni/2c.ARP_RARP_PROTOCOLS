@@ -1,4 +1,8 @@
 # 2c.SIMULATING ARP /RARP PROTOCOLS
+**Name:** SOWMYA BADONI
+
+**Register Number:** 212223230211
+
 ## AIM
 To write a python program for simulating ARP protocols using TCP.
 ## ALGORITHM:
@@ -17,9 +21,61 @@ stored.
 5. Map the IP address with its MAC address and return the MAC address to client.
 P
 ## PROGRAM - ARP
-## OUPUT - ARP
+```
+CLIENT
+import socket 
+s=socket.socket() 
+s.bind(('localhost',8000)) 
+s.listen(5) 
+c,addr=s.accept() 
+address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"}; 
+while True: 
+            ip=c.recv(1024).decode() 
+            try: 
+                c.send(address[ip].encode()) 
+            except KeyError: 
+                c.send("Not Found".encode())  
+SERVER
+import socket 
+s=socket.socket() 
+s.connect(('localhost',8000)) 
+while True: 
+    ip=input("Enter logical Address : ") 
+    s.send(ip.encode()) 
+    print("MAC Address",s.recv(1024).decode())
+```
+## OUTPUT - ARP
+![image](https://github.com/user-attachments/assets/ae52b818-9670-4a64-92fd-544b25ff85d5)
+![image](https://github.com/user-attachments/assets/824f2096-727b-40b4-99b6-1ebcc8365b67)
+
 ## PROGRAM - RARP
-## OUPUT -RARP
+```
+CLIENT
+import socket 
+s=socket.socket() 
+s.bind(('localhost',9000)) 
+s.listen(5) 
+c,addr=s.accept() 
+address={"6A:08:AA:C2":"192.168.1.100","8A:BC:E3:FA":"192.168.1.99"}; 
+while True: 
+            ip=c.recv(1024).decode() 
+            try: 
+                c.send(address[ip].encode()) 
+            except KeyError: 
+                c.send("Not Found".encode()) 
+SERVER
+import socket 
+s=socket.socket() 
+s.connect(('localhost',9000)) 
+while True: 
+    ip=input("Enter MAC Address : ") 
+    s.send(ip.encode()) 
+    print("Logical Address",s.recv(1024).decode())
+```
+## OUTPUT -RARP
+![image](https://github.com/user-attachments/assets/8af270aa-cf81-4b71-a50e-70b500412f66)
+![image](https://github.com/user-attachments/assets/71e6b01e-d447-4f75-a1af-fd3530b55b3a)
+
 ## RESULT
 Thus, the python program for simulating ARP protocols using TCP was successfully 
 executed.
